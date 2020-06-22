@@ -2,9 +2,10 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT([rw-test], [0.1], [starbow.duster@gmail.com])
-AC_CONFIG_SRCDIR([rw-test.h])
+AC_INIT([rwtest], [0.1], [starbow.duster@gmail.com])
+AC_CONFIG_SRCDIR([rwtest.h])
 AC_CONFIG_HEADERS([config.h])
+AM_INIT_AUTOMAKE([foreign])
 
 # Checks for programs.
 AC_PROG_CC

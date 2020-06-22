@@ -9,7 +9,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdbool.h>
-#include "rw-test.h"
+#include "rwtest.h"
 
 void usage();
 

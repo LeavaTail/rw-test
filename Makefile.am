@@ -1,2 +1,2 @@
-bin_PROGRAMS = rw-test
-rw-test_SOURCES = rw-test.c rw-test.h
+bin_PROGRAMS = rwtest
+rwtest_SOURCES = rwtest.c rwtest.h
