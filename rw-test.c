@@ -9,16 +9,7 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <stdbool.h>
-#define FILESIZE	(1LU)             //    1 MiB
-#define BUFSIZE		(4LU * (1 << 10)) // 4096 Byte
-#define BLOCKSIZE	(1LU << 9)        //  512 Byte
-#define BINPREFIX	(1LU << 10)       // 1024 Byte
-#define OPTIONSTR	"bdf:s:t:D"
-#define VERSION "0.1"
-#define FILENAMESIZE	256
-#define IOREAD (1U << 0)
-#define IOWRITE (1U << 1)
-#define FILENAME	"FILE0000.TXT"
+#include "rw-test.h"
 
 void usage();
 
