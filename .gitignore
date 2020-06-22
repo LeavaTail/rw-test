@@ -1,1 +1,16 @@
-*.log
+autoscan.log
+configure.scan
+autom4te.cache
+aclocal.m4
+compile
+configure
+config.*
+.deps
+depcomp
+install-sh
+missing
+stamp-h1
+Makefile
+Makefile.in
+COPYING
+INSTALL
