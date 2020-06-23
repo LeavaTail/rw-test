@@ -27,8 +27,7 @@ int main(int argc, char **argv) {
 	int file_size = FILESIZE;
 	int chunk_size = BUFSIZE;
 	int num_chunks = 0;
-	int iflags = O_WRONLY | O_CREAT;
-	int oflags = O_RDONLY | O_EXCL;
+	int flags = O_RDWR | O_CREAT;
 
 	/* analyze Option */
 	while((c = getopt(argc, argv, OPTIONSTR)) != -1) {
@@ -97,14 +96,12 @@ int main(int argc, char **argv) {
 
 	posix_memalign( (void **)&buf, BLOCKSIZE, BUFSIZE);
 	num_chunks = (BINPREFIX * BINPREFIX) * file_size / chunk_size;
-	if(direct_io) {
-		iflags = O_DIRECT;
-		oflags = O_DIRECT;
-	}
+	if(direct_io)
+		flags |= O_DIRECT;
 
 	/* Phase: WRITE */
 	if(iotype & IOWRITE) {
-		fd = open(file_name, iflags, S_IREAD | S_IWRITE);
+		fd = open(file_name, flags, S_IREAD | S_IWRITE);
 		if(fd < 0) {
 			perror("open");
 			exit(EXIT_FAILURE);
@@ -128,8 +125,7 @@ int main(int argc, char **argv) {
 
 	/* Phase: READ  */
 	if(iotype & IOREAD) {
-		oflags = O_RDWR;
-		fd = open(file_name, oflags);
+		fd = open(file_name, flags, S_IREAD | S_IWRITE);
 		if(fd < 0) {
 			perror("open");
 			exit(EXIT_FAILURE);
