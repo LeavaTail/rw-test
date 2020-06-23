@@ -3,7 +3,7 @@
 
 AC_PREREQ([2.69])
 AC_INIT([rwtest], [0.1], [starbow.duster@gmail.com])
-AC_CONFIG_SRCDIR([rwtest.h])
+AC_CONFIG_SRCDIR([config.h.in])
 AC_CONFIG_HEADERS([config.h])
 AM_INIT_AUTOMAKE([foreign])
 
@@ -22,5 +22,7 @@ AC_TYPE_SIZE_T
 # Checks for library functions.
 AC_CHECK_FUNCS([memset strdup])
 
-AC_CONFIG_FILES([Makefile])
+AC_CONFIG_FILES([Makefile
+                 include/Makefile
+                 src/Makefile])
 AC_OUTPUT
