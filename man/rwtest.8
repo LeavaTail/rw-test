@@ -1,0 +1,38 @@
+.TH "RWTEST" "8" "June 24, 2020" "" "System administration commands"
+
+.SH NAME
+rwtest \- program to test hard drive performance.
+
+.SH SYNOPSIS
+.B rwtest
+.I [\-d dir] [\-s size(MiB)[:chunk\-size(b)]]
+.I [\-f filename] [\-b] [\-D]
+
+.SH DESCRIPTION
+\fBrwtest\fR is referenced \fBBonnie++\fR.
+.PP
+
+.SH OPTIONS
+For rwtest every option is of the form of a hyphen followed by a letter and
+then the next parameter contains the value.
+.TP
+\fB\-d\fR
+the directory to use for the tests. Default paramter is current directory.
+.TP
+\fB\-s\fR
+the size of the file(s) for IO performance measures in megabytes.  This parameter
+may include the chunk size seperated from the size by a colon.  The chunk\-size
+is measured in bytes and must be a power of two from 256 to 1048576,
+the default is 4KB:1MB.
+.TP
+\fB\-f\fR
+the file to use for the tests. Default paramter is "FILE0000.TXT".
+.TP
+.B \-b
+no write buffering.  fsync() after every write.
+.TP
+.B \-D
+use direct IO (O_DIRECT) for the IO tests
+
+.SH AUTHOR
+Written by LeavaTail <starbow.duster@gmail.com>.
