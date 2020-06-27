@@ -67,6 +67,7 @@ script:
     - "scripts/bootstrap.sh"
     - "./configure --enable-debug && make check"
     - "cat ./test-suite.log"
+    - "cat ./tests/*.log"
     - "for pathfile in `ls src/*.c`; do gcov $pathfile; done"
 
 after_success:
