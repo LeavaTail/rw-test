@@ -23,6 +23,7 @@ int main(int argc, char **argv) {
 	char file_name[FILENAMESIZE] = {FILENAME};
 	bool bufsync = false;
 	bool direct_io = false;
+	bool quiet = false;
 	int iotype = IOREAD | IOWRITE;
 	int file_size = FILESIZE;
 	int chunk_size = BUFSIZE;
@@ -87,6 +88,9 @@ int main(int argc, char **argv) {
 			case 'D':
 				direct_io = true;
 				break;
+			case 'q':
+				quiet = true;
+				break;
 			case '?':
 				/* FALLTHROUGH */
 			case ':':
@@ -107,6 +111,7 @@ int main(int argc, char **argv) {
 			exit(EXIT_FAILURE);
 		}
 		memset(buf, 0, BUFSIZE);
+		if(!quiet) fprintf(stderr, "Writing chunk %s fsync()... \n", (bufsync? "with": "without"));
 		for(i = 0; i < num_chunks; i++)
 		{
 			buf[bufindex]++;
@@ -131,6 +136,7 @@ int main(int argc, char **argv) {
 			exit(EXIT_FAILURE);
 		}
 		memset(buf, 0, BUFSIZE);
+		if(!quiet) fprintf(stderr, "Reading chunk... \n");
 		for(i = 0; i < num_chunks; i++)
 		{
 			ret = read(fd, buf, chunk_size);
@@ -142,12 +148,15 @@ int main(int argc, char **argv) {
 		}
 		close(fd);
 	}
+	if(!quiet) fprintf(stderr, "%s %s Done...\n",
+								(iotype & IOWRITE)? "Write":"",
+								(iotype & IOREAD)? "Read":"");
 	return 0;
 }
 
 void usage(void) {
 	fprintf(stderr, "Usage: iotest [-d scratch-dir] [-s size(MiB)[:shunk-size(b)]]\n");
-	fprintf(stderr, "              [-f filename] [-t read/write] [-b] [-D]\n");
+	fprintf(stderr, "              [-f filename] [-t read/write] [-b] [-D] [-q] [-v]\n");
 	fprintf(stderr, "\nVersion: %s\n", VERSION);
 	exit(EXIT_FAILURE);
 }

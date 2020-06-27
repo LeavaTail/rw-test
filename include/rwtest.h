@@ -13,7 +13,7 @@
 #define IOWRITE (1U << 1)
 
 /* program metadata */
-#define OPTIONSTR	"bdf:s:t:D"
+#define OPTIONSTR	"bdf:s:t:Dq"
 #define VERSION "0.1"
 #define FILENAME	"FILE0000.TXT"
 
