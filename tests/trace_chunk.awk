@@ -13,6 +13,7 @@ BEGIN{
 {
 	if( $1 == "openat" ) {
 		str = "\"" FILE "\"" ","
+		print "  open:  "$3" compared to" str
 		if( $3 == str ) 
 			OFLAGS = 1
 	}
