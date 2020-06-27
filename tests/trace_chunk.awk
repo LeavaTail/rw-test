@@ -7,6 +7,7 @@ BEGIN{
 	if(FILESIZE == "") FILESIZE=1048576
 
 	print FILE ": " "chunksize=" CHUNKSIZE
+	print "------------------------------"
 }
 
 {
@@ -17,14 +18,25 @@ BEGIN{
 	}
 
 	if( OFLAGS == 1 && $1 == "write")
-		if( $4 == CHUNKSIZE )
+		if( $4 == CHUNKSIZE ) {
 			WFLAGS = 1
+		} else if(WARN != 1) {
+			print $0
+			print "  write: "$4" is not expected." "(" CHUNKSIZE ")"
+			WARN = 1
+		}
 	if( OFLAGS == 1 && $1 == "read")
-		if( $4 == CHUNKSIZE )
+		if( $4 == CHUNKSIZE ) {
 			RFLAGS = 1
+		} else if(WARN != 1) {
+			print $0
+			print "  read:  "$4" is not expected." "(" CHUNKSIZE ")"
+			WARN = 1
+		}
 }
 
 END{
+	print "------------------------------"
 	if(WFLAGS != 1 || RFLAGS != 1) {
 		print "write/read chunksize is invalid."
 		exit 1
