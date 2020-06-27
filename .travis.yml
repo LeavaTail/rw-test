@@ -67,6 +67,7 @@ script:
     - "scripts/bootstrap.sh"
     - "./configure --enable-debug && make && make check"
     - "cat ./test-suite.log"
+    - "for logfile in `ls tests/*.log`; do cat $logfile; done"
     - "for pathfile in `ls src/*.c`; do gcov $pathfile; done"
 
 after_success:
