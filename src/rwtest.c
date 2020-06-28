@@ -18,6 +18,7 @@ int main(int argc, char **argv) {
 	int fd = 0;
 	int c = 0;
 	int bufindex = 0;
+	int err = 0;
 	size_t ret = 0;
 	char *buf;
 	char file_name[FILENAMESIZE] = {0};
@@ -118,7 +119,8 @@ int main(int argc, char **argv) {
 		fd = open(file_name, flags, S_IREAD | S_IWRITE);
 		if(fd < 0) {
 			perror("open");
-			exit(EXIT_FAILURE);
+			err = fd;
+			goto out;
 		}
 		memset(buf, 0, BUFSIZE);
 		if(!quiet) fprintf(stderr, "Writing chunk %s fsync()... \n", (bufsync? "with": "without"));
@@ -130,7 +132,8 @@ int main(int argc, char **argv) {
 			if (ret < 0) {
 				perror("write");
 				close(fd);
-				exit(EXIT_FAILURE);
+				err = ret;
+				goto out;
 			}
 			if(bufsync)
 				fsync(fd);
@@ -143,7 +146,8 @@ int main(int argc, char **argv) {
 		fd = open(file_name, flags, S_IREAD | S_IWRITE);
 		if(fd < 0) {
 			perror("open");
-			exit(EXIT_FAILURE);
+			err = fd;
+			goto out;
 		}
 		memset(buf, 0, BUFSIZE);
 		if(!quiet) fprintf(stderr, "Reading chunk... \n");
@@ -153,7 +157,8 @@ int main(int argc, char **argv) {
 			if (ret < 0) {
 				perror("read");
 				close(fd);
-				exit(EXIT_FAILURE);
+				err = ret;
+				goto out;
 			}
 		}
 		close(fd);
@@ -161,7 +166,9 @@ int main(int argc, char **argv) {
 	if(!quiet) fprintf(stderr, "%s %s Done...\n",
 								(iotype & IOWRITE)? "Write":"",
 								(iotype & IOREAD)? "Read":"");
-	return 0;
+out:
+	free(buf);
+	return err;
 }
 
 void usage(void) {
