@@ -138,6 +138,7 @@ int main(int argc, char **argv) {
 			if(bufsync)
 				fsync(fd);
 		}
+		fsync(fd);
 		close(fd);
 	}
 
@@ -161,6 +162,7 @@ int main(int argc, char **argv) {
 				goto out;
 			}
 		}
+		fsync(fd);
 		close(fd);
 	}
 	if(!quiet) fprintf(stderr, "%s %s Done...\n",
