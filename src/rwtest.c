@@ -105,7 +105,10 @@ int main(int argc, char **argv) {
 		sprintf(file_name, "RW_%04d.TXT", myPid);
 	}
 
-	posix_memalign( (void **)&buf, BLOCKSIZE, BUFSIZE);
+	if(posix_memalign( (void **)&buf, BLOCKSIZE, BUFSIZE)){
+		perror("alignment");
+		exit(EXIT_FAILURE);
+	}
 	num_chunks = (BINPREFIX * BINPREFIX) * file_size / chunk_size;
 	if(direct_io)
 		flags |= O_DIRECT;
