@@ -15,6 +15,5 @@
 /* program metadata */
 #define OPTIONSTR	"bd:f:s:t:Dq"
 #define VERSION "0.1"
-#define FILENAME	"FILE0000.TXT"
 
 #endif

@@ -19,3 +19,4 @@ src/.dirstamp
 src/*.gcno
 src/*.o
 test-driver
+RW_*.TXT

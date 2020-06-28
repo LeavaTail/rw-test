@@ -20,7 +20,8 @@ int main(int argc, char **argv) {
 	int bufindex = 0;
 	size_t ret = 0;
 	char *buf;
-	char file_name[FILENAMESIZE] = {FILENAME};
+	char file_name[FILENAMESIZE] = {0};
+	bool filefix = false;
 	bool bufsync = false;
 	bool direct_io = false;
 	bool quiet = false;
@@ -45,6 +46,7 @@ int main(int argc, char **argv) {
 			case 'f':
 				memset(file_name, 0x00, FILENAMESIZE);
 				snprintf(file_name, FILENAMESIZE - 1, "%s", optarg);
+				filefix = true;
 				break;
 			case 's':
 				{
@@ -96,6 +98,11 @@ int main(int argc, char **argv) {
 			case ':':
 				usage();
 		}
+	}
+
+	if(!filefix) {
+		pid_t myPid = getpid();
+		sprintf(file_name, "RW_%04d.TXT", myPid);
 	}
 
 	posix_memalign( (void **)&buf, BLOCKSIZE, BUFSIZE);
