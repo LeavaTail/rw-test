@@ -11,13 +11,11 @@ BEGIN{
 }
 
 {
-	if($9 == FILE) {
-		if($5 == FILESIZE) {
-			FLAGS = 1
-		} else {
-			print $0
-			print "  ls -l: "$5" is not expected." "(" FILESIZE ")"
-		}
+	if($5 == FILESIZE) {
+		FLAGS = 1
+	} else {
+		print $0
+		print "  ls -l: "$5" is not expected." "(" FILESIZE ")"
 	}
 }
 

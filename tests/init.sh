@@ -11,3 +11,5 @@ mkdir mnt
 dd if=/dev/zero bs=1024 count=128K of=${TARGET}
 mkfs.${FSTYPE} ${TARGET}
 sudo mount -t ${FSTYPE} -o loop ${TARGET} mnt
+
+echo "---------------OK---------------"

@@ -10,3 +10,5 @@ FSTYPE=vfat
 sudo umount mnt
 rmdir mnt
 rm -f ${TARGET}
+
+echo "---------------OK---------------"
