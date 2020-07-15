@@ -26,6 +26,5 @@ jobs:
     - name: make check
       run: |
         make check || cat ./test-suite.log
-        ls -A tests
         for logfile in `ls tests/*.log`; do cat $logfile; done
         for pathfile in `ls src/*.c`; do gcov $pathfile; done
